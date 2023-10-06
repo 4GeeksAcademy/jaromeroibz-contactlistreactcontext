@@ -12,17 +12,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			contacts: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			eliminarContacto: (indexEliminar) => {
+
+				const store = getStore();
+				const actions = getActions();
+				// store.contacts.filter((item,index) => index ==! indexEliminar);
+				// console.log(store.contacts.filter((item,index) => index ==! indexEliminar));
+
+				setStore({ contacts: store.contacts.filter((item,index) => index ==! indexEliminar)});
+
+				var requestOptions = {
+					method: 'DELETE',	
+					redirect: 'follow'
+				};
+				
+				fetch("https://playground.4geeks.com/apis/fake/contact/" + indexEliminar, requestOptions)
+					.then(response => response.text())
+					.then( () => {
+						result => console.log(result)
+						fetch('https://playground.4geeks.com/apis/fake/contact/agenda/agenda_javier')
+						.then((response) => response.json())
+						.then((data) => setStore({contacts: data}))
+					})
+					.catch(error => console.log('error', error));
+
 			},
 			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+
+				const store = getStore()
+				fetch('https://playground.4geeks.com/apis/fake/contact/agenda/agenda_javier')
+				.then((response) => response.json())
+				.then((data) => {
+					setStore({contacts: data})
+					console.log(store.contacts)
+				})
+
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -36,10 +65,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 
 				//reset the global store
-				setStore({ demo: demo });
+				setStore({demo: demo});
+			},
+			agregarContacto: (data) => {
+				
+				const store = getStore();
+
+				const requestOptions = {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(data)
+				}
+				console.log('Agregar Contacto')
+				fetch('https://playground.4geeks.com/apis/fake/contact', requestOptions)
+				.then( (response) => response.json() )
+				.then( (data) => { getActions().getContacts()} )
+			
+			},
+			getContacts: async () => {
+				const store = getStore();
+				console.log('leer tareas')
+				let response = await fetch('https://playground.4geeks.com/apis/fake/contact/agenda/agenda_javier')
+			
+				let data = await response.json()
+
+				if (response.ok){
+				  setStore({
+					contacts: data
+				  })
+				  console.log('existe el usuario')
+				}
+			  
+			  }
+			
 			}
+			
 		}
 	};
-};
+
 
 export default getState;
