@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
 
 import "../../styles/demo.css";
 
-export const Demo = (e) => {
+export const EditContact = (e) => {
 
+	const {theid} = useParams();
+	
 	const { store, actions } = useContext(Context);
 	const [contact,setContact] = useState({
 		"full_name": "",
@@ -23,7 +25,7 @@ export const Demo = (e) => {
 			[event.target.name]:event.target.value
 		}) 
 	}
-	
+
 	return (
 		<div className="container">
 			<form>
@@ -45,7 +47,7 @@ export const Demo = (e) => {
     				<label>Phone number</label>
    					<input value={contact.phone} onChange={handleChange} name= 'phone' type="number" className="form-control" id="formGroupExampleInput" placeholder="Enter your phone number"></input>
   				</div>
-				<button onClick={() => actions.agregarContacto(contact)} type="button" className="btn btn-primary py-3">Save Contact</button>
+				<button onClick={() => actions.editarContacto(contact, theid)} type="button" className="btn btn-primary py-3">Save Contact</button>
 			</form>
 			<br />
 			<Link to="/">

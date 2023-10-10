@@ -1,3 +1,17 @@
 /* 
     General Styles
 */
+.addcontact{
+    margin-left: auto; 
+    margin-right: 0;
+}
+.pencontainer{
+    margin-left: auto; 
+    margin-right: 0;
+}
+.pen{
+    color:black;    
+}
+.info{
+    color: grey;
+}
