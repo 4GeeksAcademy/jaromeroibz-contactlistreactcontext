@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { editContact } from "./editcontact";
+import { EditContact } from "./editcontact.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
@@ -33,11 +33,31 @@ export const Home = () => {
 						</div>
 						<div className="pencontainer">
 						<Link to={`/editcontact/${item.id}`}>
-						<p className="pen"><FontAwesomeIcon icon={faPen} /></p>
+							<p className="pen"><FontAwesomeIcon icon={faPen} /></p>
 						</Link>
 						</div>
 						<div className="trashcan px-5">
-						<p  onClick={ () => actions.eliminarContacto(item.id)}><FontAwesomeIcon icon={faTrashCan} /></p>
+							<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<FontAwesomeIcon icon={faTrashCan} />
+							</button>
+
+							<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div className="modal-dialog">
+									<div className="modal-content">
+									<div className="modal-header">
+										<h1 className="modal-title fs-5" id="exampleModalLabel">Delete contact</h1>
+										<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div className="modal-body">
+										Are you sure to delete this contact?
+									</div>
+									<div className="modal-footer">
+										<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										<button onClick={ () => actions.eliminarContacto(item.id)} type="button" data-bs-dismiss="modal" className="btn btn-primary">Delete</button>
+									</div>
+									</div>
+								</div>
+							</div>
 						</div>	
 					</li>
 					

@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { Context } from "../store/appContext";
-
-
+import { Home } from "./home.js";
 import "../../styles/demo.css";
 
-export const EditContact = (e) => {
-
+export const EditContact = (item) => {
+	console.log(item)
 	const {theid} = useParams();
-	
+	console.log(theid)
 	const { store, actions } = useContext(Context);
 	const [contact,setContact] = useState({
 		"full_name": "",
@@ -25,13 +24,19 @@ export const EditContact = (e) => {
 			[event.target.name]:event.target.value
 		}) 
 	}
+	function searchContact () {
+		const result = store.contacts.find((item) => item.id == theid )
+		console.log(result)
+		setContact(result)
+	}
+	useEffect(() => {searchContact()}, [])
 
 	return (
 		<div className="container">
 			<form>
 				<div className="form-group py-3">
     				<label>Full Name</label>
-   					<input value={contact.full_name} onChange={handleChange} name='full_name' type="text" className="form-control" id="formGroupExampleInput" placeholder="Enter Full Name"></input>
+   					<input value={contact.full_name} onChange={handleChange} name='full_name' type="text" className="form-control" id="formGroupExampleInput" placeholder= "Enter full name"></input>
   				</div>
 				<div className="form-group py-3">
 					<label >Email address</label>
@@ -47,7 +52,9 @@ export const EditContact = (e) => {
     				<label>Phone number</label>
    					<input value={contact.phone} onChange={handleChange} name= 'phone' type="number" className="form-control" id="formGroupExampleInput" placeholder="Enter your phone number"></input>
   				</div>
+				<Link to="/">
 				<button onClick={() => actions.editarContacto(contact, theid)} type="button" className="btn btn-primary py-3">Save Contact</button>
+				</Link>
 			</form>
 			<br />
 			<Link to="/">

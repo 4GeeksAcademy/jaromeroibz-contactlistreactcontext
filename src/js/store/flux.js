@@ -40,7 +40,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						.then((data) => setStore({contacts: data}))
 					})
 					.catch(error => console.log('error', error));
-
+					
+				getActions().getContacts();	
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -91,17 +92,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				
 			    const requestOptions = {
 					method: 'PUT',
-					redirect: 'follow',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify( contact )
 				};
 				fetch(`https://playground.4geeks.com/apis/fake/contact/${theid}`, requestOptions)
 					.then((response) => response.json())
-					.then((data) => {setStore({
-						contacts: contact
-					})
-					actions.getContacts()}
-				)
+					.then((data) => actions.getContacts())
 			}
 			
 		}

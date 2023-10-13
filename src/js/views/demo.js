@@ -6,8 +6,8 @@ import { Context } from "../store/appContext";
 
 import "../../styles/demo.css";
 
-export const Demo = (e) => {
-
+export const Demo = (item) => {
+	console.log(item.id)
 	const { store, actions } = useContext(Context);
 	const [contact,setContact] = useState({
 		"full_name": "",
@@ -22,6 +22,19 @@ export const Demo = (e) => {
 			...contact,
 			[event.target.name]:event.target.value
 		}) 
+	}
+
+	function saveContact () {
+		actions.agregarContacto(contact)
+		setContact(
+			{
+				"full_name": "",
+				"email": "",
+				"agenda_slug": "agenda_javier",
+				"address":"",
+				"phone":""
+			}
+		)
 	}
 	
 	return (
@@ -45,7 +58,7 @@ export const Demo = (e) => {
     				<label>Phone number</label>
    					<input value={contact.phone} onChange={handleChange} name= 'phone' type="number" className="form-control" id="formGroupExampleInput" placeholder="Enter your phone number"></input>
   				</div>
-				<button onClick={() => actions.agregarContacto(contact)} type="button" className="btn btn-primary py-3">Save Contact</button>
+				<button onClick={() => saveContact()} type="button" className="btn btn-primary py-3">Save Contact</button>
 			</form>
 			<br />
 			<Link to="/">
