@@ -7,7 +7,6 @@ import { Context } from "../store/appContext";
 import "../../styles/demo.css";
 
 export const Demo = (item) => {
-	console.log(item.id)
 	const { store, actions } = useContext(Context);
 	const [contact,setContact] = useState({
 		"full_name": "",
@@ -58,7 +57,9 @@ export const Demo = (item) => {
     				<label>Phone number</label>
    					<input value={contact.phone} onChange={handleChange} name= 'phone' type="number" className="form-control" id="formGroupExampleInput" placeholder="Enter your phone number"></input>
   				</div>
+				<Link to="/">
 				<button onClick={() => saveContact()} type="button" className="btn btn-primary py-3">Save Contact</button>
+				</Link>
 			</form>
 			<br />
 			<Link to="/">

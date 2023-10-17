@@ -1,3 +1,5 @@
+import { useParams } from "react-router";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -17,31 +19,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			eliminarContacto: (indexEliminar) => {
-
-				const store = getStore();
-				const actions = getActions();
-				// store.contacts.filter((item,index) => index ==! indexEliminar);
-				// console.log(store.contacts.filter((item,index) => index ==! indexEliminar));
-
-				setStore({ contacts: store.contacts.filter((item,index) => index ==! indexEliminar)});
-
-				var requestOptions = {
-					method: 'DELETE',	
-					redirect: 'follow'
-				};
+			eliminarContacto: (item) => {
 				
-				fetch("https://playground.4geeks.com/apis/fake/contact/" + indexEliminar, requestOptions)
-					.then(response => response.text())
-					.then( () => {
-						result => console.log(result)
-						fetch('https://playground.4geeks.com/apis/fake/contact/agenda/agenda_javier')
-						.then((response) => response.json())
-						.then((data) => setStore({contacts: data}))
-					})
-					.catch(error => console.log('error', error));
+				console.log(item)
+				// const store = getStore();
+				// const actions = getActions();
+				// const indexMap = item.id
+				// console.log(indexMap)
+				// // let idDelete = store.contacts.indexMap;
+				// // console.log(idDelete);
+
+				// // setStore({ contacts: store.contacts.filter((item) => item.id ==! indexMap)});
+				// // console.log(store.contacts.filter((item) => item.id !== indexMap))
+
+				// var requestOptions = {
+				// 	method: 'DELETE'
+				// };
+				
+				// fetch("https://playground.4geeks.com/apis/fake/contact/" + indexMap, requestOptions)
+				// 	.then(response => response.json())
+				// 	.then( () => {
+				// 		fetch('https://playground.4geeks.com/apis/fake/contact/agenda/agenda_javier')
+				// 		.then((response) => response.json())
+				// 		.then((data) => setStore({contacts: data}))
+				// 	})
+				// 	.catch(error => console.log('error', error));
 					
-				getActions().getContacts();	
+				// getActions().getContacts();	
 			},
 			changeColor: (index, color) => {
 				//get the store

@@ -18,10 +18,9 @@ export const Home = () => {
 		<div className="container">
 			<ul className="list-group py-5">
 			<h1 className="py-3">Contact List</h1>
-			{store.contacts.map((item, index) => {
-				return (
+			{store.contacts.map((item) => 
+				
 					<li
-						key={index}
 						className="list-group-item d-flex"
 						>
 						<img src="https://picsum.photos/200" alt=""></img>
@@ -53,16 +52,14 @@ export const Home = () => {
 									</div>
 									<div className="modal-footer">
 										<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-										<button onClick={ () => actions.eliminarContacto(item.id)} type="button" data-bs-dismiss="modal" className="btn btn-primary">Delete</button>
+										<button onClick={ () => actions.eliminarContacto(item)} type="button" data-bs-dismiss="modal" className="btn btn-primary">Delete</button>
 									</div>
 									</div>
 								</div>
 							</div>
 						</div>	
 					</li>
-					
-				);
-			})}
+			)}
 			</ul>
 			<br />
 			<Link to="/">
@@ -71,4 +68,3 @@ export const Home = () => {
 		</div>
 	);
 };
-
