@@ -15,37 +15,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			contacts: []
+			contacts: [],
+			idToDelete: ""
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
 			eliminarContacto: (item) => {
 				
 				console.log(item)
-				// const store = getStore();
-				// const actions = getActions();
-				// const indexMap = item.id
-				// console.log(indexMap)
-				// // let idDelete = store.contacts.indexMap;
-				// // console.log(idDelete);
+				const store = getStore();
+				const actions = getActions();
+				const indexMap = getStore().idToDelete
+				console.log(indexMap)
 
-				// // setStore({ contacts: store.contacts.filter((item) => item.id ==! indexMap)});
-				// // console.log(store.contacts.filter((item) => item.id !== indexMap))
-
-				// var requestOptions = {
-				// 	method: 'DELETE'
-				// };
+				var requestOptions = {
+					method: 'DELETE'
+				};
 				
-				// fetch("https://playground.4geeks.com/apis/fake/contact/" + indexMap, requestOptions)
-				// 	.then(response => response.json())
-				// 	.then( () => {
-				// 		fetch('https://playground.4geeks.com/apis/fake/contact/agenda/agenda_javier')
-				// 		.then((response) => response.json())
-				// 		.then((data) => setStore({contacts: data}))
-				// 	})
-				// 	.catch(error => console.log('error', error));
+				fetch("https://playground.4geeks.com/apis/fake/contact/" + indexMap, requestOptions)
+					.then(response => response.json())
+					.then( () => {
+						fetch('https://playground.4geeks.com/apis/fake/contact/agenda/agenda_javier')
+						.then((response) => response.json())
+						.then((data) => setStore({contacts: data}))
+					})
+					.catch(error => console.log('error', error));
 					
-				// getActions().getContacts();	
+				getActions().getContacts();	
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -102,7 +98,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(`https://playground.4geeks.com/apis/fake/contact/${theid}`, requestOptions)
 					.then((response) => response.json())
 					.then((data) => actions.getContacts())
-			}
+			},
+			saveToDelete: (theid) =>{
+				setStore({
+					idToDelete: theid
+				})
+			} 
 			
 		}
 			
