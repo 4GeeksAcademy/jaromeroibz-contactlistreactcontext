@@ -36,7 +36,7 @@ export const Home = () => {
 						</Link>
 						</div>
 						<div className="trashcan px-5">
-							<button onClick= { actions.saveToDelete(item.id) } type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<button onClick= { () => actions.saveToDelete(item.id) } type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
 							<FontAwesomeIcon icon={faTrashCan} />
 							</button>
 
